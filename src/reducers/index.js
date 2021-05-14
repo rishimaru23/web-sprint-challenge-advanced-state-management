@@ -17,12 +17,14 @@ const reducer = (state = initialState, action)=>{
             return {
                 ...state,
                 smurfs: action.payload,
-                isLoading: false
+                isLoading: false,
+                error:''
             };
         case SMURF_FAIL:
             return {
                 ...state,
-                isLoading: false
+                isLoading: false,
+                error: action.payload
             };
         case ADD_SMURF:
             return {

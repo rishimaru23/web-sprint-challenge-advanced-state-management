@@ -1,15 +1,10 @@
 import React from 'react';
-import FormImpl from 'react-bootstrap/esm/Form';
 import Smurf from './Smurf';
 import { connect } from 'react-redux';
-import { propTypes } from 'react-bootstrap/esm/Image';
+
 
  const SmurfList = props => {
-    const isLoading = props.isLoading;
-    
-    
-
-    if (isLoading) {
+        if (props.isLoading) {
         return <h1>Loading...</h1>;
     }
 
@@ -25,7 +20,7 @@ const mapStateToProps = state => {
     })
 };
 
-export default connect(mapStateToProps)(SmurfList);
+export default connect(mapStateToProps,{})(SmurfList);
 
 //Task List:
 //1. Connect the smurfs and loading state values to the SmurfList component.

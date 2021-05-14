@@ -10,30 +10,26 @@ export const SMURF_FAIL = "SMURF_FAIL";
 export const ADD_SMURF = "ADD_SMURF";
 export const SET_ERROR = "SET_ERROR";
 
-const smurfLoad = () => {return({type:SMURF_LOAD})};
-const smurfSuccess = data => {return({type: SMURF_SUCCESS, payload: data})};
-const smurfFail = error => {return({type: SMURF_FAIL, payload: error})}
 
-export const fetchSmurfs = () => dispatch => {
+export const fetchSmurfs = () => {
+    return (dispatch) => {  
+        dispatch({ type: SMURF_LOAD })
+        axios.get('http://localhost:3333/smurfs')
+            .then((res) => {
+                console.log(res.data)
+                dispatch({ type: FETCH_SUCCESS, payload: res.data })
+            })
+            .catch((err) => {
+                console.log(err)
+                dispatch({ type: FETCH_FAIL, payload: err.message})
+            })
+        }
+}
 
-    dispatch(smurfLoad());
+export const addSmurf = (smurf) => {
+    return { type: ADD_SMURF, payload: smurf }
+}
 
-    axios
-    .get('http://localhost:3333/smurfs')
-    .then(res => {
-        console.log(res);
-        dispatch(smurfSuccess(res.data));
-    })
-    .catch(err => {
-        console.log(err);
-        dispatch(smurfFail(err));
-    });
-};
-
-export const addSmurf = smurf => {
-    return {type: ADD_SMURF, payload: smurf};
-};
-
-export const setError = error => {
-    return {type: SET_ERROR, payload: error};
-};
+export const setFormError = error => {
+    return { type: SET_ERROR, payload: error}
+}
